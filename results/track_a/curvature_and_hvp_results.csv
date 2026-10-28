@@ -1,0 +1,4 @@
+Test,Metric,Value
+HVP Accuracy,Euclidean Error ||Hv_exact - Hv_approx||,8.20051706100856e-11
+Noisy Optimization,Final Loss (Diagonal Fisher),13.897494617826473
+Noisy Optimization,Final Loss (Standard GD),-0.44980091069701467

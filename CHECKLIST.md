@@ -19,7 +19,7 @@ This checklist tracks assignment requirements, deliverable status, testing statu
 
 | Track | Specification Status | Implementation Status | Test & Validation Status | Results Generated | Track Completion |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-| **Track A** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
+| **Track A** | Fully Specified (Sec. 5 & 6) | Completed | 11/11 Passed | Generated (`results/track_a/`) | 🟢 Complete |
 | **Track B** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
 | **Track C** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
 | **Track D** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
@@ -37,7 +37,15 @@ This checklist tracks assignment requirements, deliverable status, testing statu
 - [x] **Phase 0: Setup and Shared Structure**
   - Project structure matches reference organization requirements.
   - No track implementations started prior to setup sign-off and specification confirmation.
-- [ ] **Phase 1: Track A**
+- [x] **Phase 1: Track A (Continuous Optimization)**
+  - [x] First-order methods: GD, SGD, Mini-batch SGD, Momentum, NAG, AdaGrad, RMSProp, Adam.
+  - [x] Second-order & curvature methods: Newton's Method with damping, Gauss-Newton for least squares.
+  - [x] Curvature approximations: Empirical diagonal Fisher, Hessian-Vector Products (HVP).
+  - [x] Backpropagation distinct from optimizer implemented on TwoLayerMLP.
+  - [x] Objective landscapes: Strongly convex quadratic, non-convex Rosenbrock, non-convex saddle escape.
+  - [x] Empirical comparisons: Convergence curves, runtime, distance to optimum, learning rate sensitivity.
+  - [x] Comprehensive test suite (11 unit tests passed).
+  - [x] Artifacts, tables, and plots saved to `results/track_a/`.
 - [ ] **Phase 2: Track B**
 - [ ] **Phase 3: Track C**
 - [ ] **Phase 4: Track D**

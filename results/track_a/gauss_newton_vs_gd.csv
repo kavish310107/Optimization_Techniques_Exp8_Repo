@@ -1,0 +1,3 @@
+Method,Iterations,Final Loss,Estimated Params,Runtime (ms)
+Gauss-Newton,5,0.003998784284011786,"[2.5281, 1.2203]",4.487
+Gradient Descent,50,0.383206390168967,"[1.9289, 0.8873]",11.889

@@ -25,3 +25,16 @@ Entries must follow the format:
 - **Lesson Learned**:
   When driving Windows PowerShell via CLI tools, pass clean command arrays or single-quoted script blocks to avoid shell variable stripping.
 
+---
+
+### Entry 002: Over-aggressive Step Size Divergence in Accelerated Gradient (NAG)
+- **Timestamp / Phase**: Track A Implementation (Benchmark 1 - Strongly Convex Quadratic)
+- **Symptom / Error Encountered**:
+  During benchmark execution on a quadratic function with Lipschitz constant $L = \lambda_{max}(Q) = 20.0$, Nesterov Accelerated Gradient (NAG) exploded with objective loss $2.76 \times 10^{32}$ at $\text{lr}=0.08$.
+- **Root Cause Analysis**:
+  For standard GD, stability requires $\eta < 2/L = 0.10$. However, accelerated momentum methods (NAG) have tighter stability bounds $\eta \le \frac{2(1-\beta)}{L(1+\beta)}$ to avoid resonance oscillations along high-curvature eigenspaces. At $\eta=0.08, \beta=0.8$, the amplification factor exceeded unity along the dominant eigenvector.
+- **Resolution / Fix Applied**:
+  Adjusted step size $\eta$ to $0.04$ ($< 1/L$), respecting acceleration stability limits, and refined NAG formulation to Sutskever's standard lookahead velocity representation. NAG then converged cleanly in 89 iterations to within $4.95 \times 10^{-7}$ of the optimum.
+- **Lesson Learned**:
+  Accelerated first-order methods require strictly smaller step sizes than unaccelerated GD when ill-conditioned curvature exists, emphasizing the necessity of step-size tuning.
+

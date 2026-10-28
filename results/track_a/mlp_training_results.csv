@@ -1,0 +1,5 @@
+Method,Batch Size,Final Loss,Final Accuracy (%),Runtime (ms)
+Full-Batch GD,400,0.437208639472585,92.0,35.07
+Mini-Batch SGD (batch=32),32,0.25002756729155445,96.25,301.94
+Pure SGD (batch=1),1,0.087591315564641,98.0,5741.57
+Adam (Mini-batch 32),32,0.042221545455923694,99.5,544.25

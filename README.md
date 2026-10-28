@@ -39,7 +39,7 @@ A comprehensive investigation and implementation of optimization methodologies a
 
 | Track | Title / Topic | Primary Algorithms | Status |
 |:---:|:---|:---|:---:|
-| **Track A** | Pending specification | TBD | Not Started |
+| **Track A** | Continuous Optimization (Chapter 6 methods) | GD, SGD, Momentum, NAG, AdaGrad, RMSProp, Adam, Newton, Gauss-Newton, Diag-Fisher, HVP | Completed |
 | **Track B** | Pending specification | TBD | Not Started |
 | **Track C** | Pending specification | TBD | Not Started |
 | **Track D** | Pending specification | TBD | Not Started |
@@ -71,13 +71,26 @@ pip install -r requirements.txt
 
 ---
 
+## AI Tools Register (Section 8 Disclosure)
+
+| AI Tool / Model | Version / Interface | Tracks | Date(s) | Activities / Contributions |
+|:---|:---|:---|:---|:---|
+| **Gemini (Antigravity Assistant)** | Gemini 3.8 Flash (Low) | Setup, Track A | 2026-10-28 | Architecture design, algorithm implementation, unit testing, benchmark execution, documentation |
+
+---
+
 ## Execution Instructions
 
-Each track is implemented independently within its designated folder (`track <X>/`). Refer to each track's local documentation or run tests via pytest:
+### Track A: Continuous Optimization
+Run tests:
 ```bash
-pytest
+python -m pytest "track A/tests/test_track_a.py" -v
 ```
-Results, benchmark logs, and visualizations will be stored under the `results/` directory.
+Run experimental benchmarks and generate visualizations:
+```bash
+python "track A/experiments/runner.py"
+```
+Generated artifacts are saved in `results/track_a/`.
 
 ---
 
