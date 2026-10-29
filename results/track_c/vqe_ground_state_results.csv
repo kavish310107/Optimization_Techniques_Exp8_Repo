@@ -1,0 +1,3 @@
+Method,Ground Energy,Runtime (ms),Error
+Exact Diagonalization,-6.0,1.2,0.0
+"VQE (RY-CX Ansatz, Reps=2)",-6.0,1694.63,0.0

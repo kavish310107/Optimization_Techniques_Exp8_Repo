@@ -52,3 +52,16 @@ Entries must follow the format:
 - **Lesson Learned**:
   Inside individual track directories designed as standalone modules, keep intra-track imports relative to the track root or absolute within the track namespace.
 
+---
+
+### Entry 004: Missing Type Annotation and Class Import in Quantum Runner
+- **Timestamp / Phase**: Track C Implementation (Experiment Runner Execution)
+- **Symptom / Error Encountered**:
+  Runner failed with `NameError: name 'Tuple_W_Q' is not defined` and subsequently `NameError: name 'SparsePauliOp' is not defined` in `experiment_barren_plateaus`.
+- **Root Cause Analysis**:
+  A typing placeholder `Tuple_W_Q` was inadvertently left in the return signature of `load_track_b_maxcut_instance`, and `SparsePauliOp` was invoked inside the barren plateau function without being imported at the top of `runner.py`.
+- **Resolution / Fix Applied**:
+  Corrected return type annotation to `np.ndarray` and imported `SparsePauliOp` from `qiskit.quantum_info` in `track C/experiments/runner.py`.
+- **Lesson Learned**:
+  Always ensure all qiskit quantum information structures are explicitly imported at module level when writing standalone experiment scripts.
+

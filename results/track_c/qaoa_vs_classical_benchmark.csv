@@ -1,0 +1,4 @@
+Method,Cut Weight,Ising Energy,Approximation Ratio,Runtime (ms)
+Classical Exact Ground State (Track B),101.0,-101.0,1.0,22.09
+QAOA (p=1 layer),93.0,-75.645,0.921,1295.62
+QAOA (p=2 layers),82.0,-77.168,0.812,2307.86

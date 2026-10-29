@@ -1,0 +1,4 @@
+Strategy,Circuit Evaluations,Runtime (ms),Gradient Norm
+Parameter-Shift Rule,12,27.094,0.4888
+SPSA (Simultaneous Perturbation),2,5.239,0.0846
+Quantum Natural Gradient (QNG),18,13.368,5.2219

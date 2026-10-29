@@ -41,7 +41,7 @@ A comprehensive investigation and implementation of optimization methodologies a
 |:---:|:---|:---|:---:|
 | **Track A** | Continuous Optimization (Chapter 6 methods) | GD, SGD, Momentum, NAG, AdaGrad, RMSProp, Adam, Newton, Gauss-Newton, Diag-Fisher, HVP | Completed |
 | **Track B** | Discrete Optimization (Chapter 6 methods) | Greedy, Dynamic Programming, Branch-and-Bound, ILP (HiGHS), QUBO, Ising conversions | Completed |
-| **Track C** | Pending specification | TBD | Not Started |
+| **Track C** | Quantum Optimization (Chapter 6 methods) | QAOA, VQE, Parameter-Shift, SPSA, QNG, Barren Plateau analysis | Completed |
 | **Track D** | Pending specification | TBD | Not Started |
 | **Track E** | Smart University Course Timetable Optimization | Greedy vs. Integer Linear Programming (ILP) | Pending Spec Verification |
 | **Track F** | Pending specification | TBD | Not Started |
@@ -75,7 +75,7 @@ pip install -r requirements.txt
 
 | AI Tool / Model | Version / Interface | Tracks | Date(s) | Activities / Contributions |
 |:---|:---|:---|:---|:---|
-| **Gemini (Antigravity Assistant)** | Gemini 3.8 Flash (Low) | Setup, Track A, Track B | 2026-10-28 to 2026-10-29 | Architecture design, algorithm implementation, unit testing, benchmark execution, documentation |
+| **Gemini (Antigravity Assistant)** | Gemini 3.8 Flash (Low) | Setup, Track A, Track B, Track C | 2026-10-28 to 2026-10-29 | Architecture design, algorithm implementation, unit testing, benchmark execution, documentation |
 
 ---
 
@@ -102,6 +102,17 @@ Run experimental benchmarks and generate visualizations:
 python "track B/experiments/runner.py"
 ```
 Generated artifacts, CSV files, plots, and matrices ($W, Q$) are saved in `results/track_b/`.
+
+### Track C: Quantum Optimization
+Run tests:
+```bash
+python -m pytest "track C/tests/test_track_c.py" -v
+```
+Run experimental benchmarks and generate visualizations:
+```bash
+python "track C/experiments/runner.py"
+```
+Generated artifacts, CSV files, and plots are saved in `results/track_c/`.
 
 ---
 

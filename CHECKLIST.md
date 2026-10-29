@@ -21,7 +21,7 @@ This checklist tracks assignment requirements, deliverable status, testing statu
 |:---:|:---:|:---:|:---:|:---:|:---:|
 | **Track A** | Fully Specified (Sec. 5 & 6) | Completed | 11/11 Passed | Generated (`results/track_a/`) | 🟢 Complete |
 | **Track B** | Fully Specified (Sec. 5 & 6) | Completed | 12/12 Passed | Generated (`results/track_b/`) | 🟢 Complete |
-| **Track C** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
+| **Track C** | Fully Specified (Sec. 5 & 6) | Completed | 7/7 Passed | Generated (`results/track_c/`) | 🟢 Complete |
 | **Track D** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
 | **Track E** | Case Study Proposed (Timetabling) | Not Started | Not Started | Not Started | ⚪ Incomplete |
 | **Track F** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
@@ -56,7 +56,15 @@ This checklist tracks assignment requirements, deliverable status, testing statu
   - [x] Classical baseline for Track C: Exact classical ground state, matrices ($W, Q$), and metrics exported to `results/track_b/`.
   - [x] Comprehensive test suite (12 unit tests passed).
   - [x] Artifacts, tables, and plots saved to `results/track_b/`.
-- [ ] **Phase 3: Track C**
+- [x] **Phase 3: Track C (Quantum Optimization)**
+  - [x] QAOA formulation: Cost Hamiltonian $H_C = \sum \frac{w_{ij}}{2} Z_i Z_j$, transverse-field mixer $H_M = \sum X_i$, parameter updates $(\gamma, \beta)$.
+  - [x] VQE implementation: Hardware-efficient RY-CX ansatz, expectation evaluation, exact diagonalization validation.
+  - [x] Gradient strategies: Parameter-shift rule (exact $2d$ queries), SPSA (2 queries), Quantum Natural Gradient (QNG via Fubini-Study metric).
+  - [x] Track B comparative baseline: Evaluated QAOA on 8-node Max-Cut ($101.0$ exact cut) achieving 0.92 approximation ratio ($93.0$ cut).
+  - [x] Realistic simulations: Finite measurement shots ($128$ to $\infty$) and depolarizing hardware noise ($0.0$ to $0.15$).
+  - [x] Barren plateau investigation: Exponential variance decay $\text{Var}[\partial E] \propto 2^{-n}$ across $N \in [2, 10]$ qubits.
+  - [x] Comprehensive test suite (7 unit tests passed).
+  - [x] Artifacts, tables, and plots saved to `results/track_c/`.
 - [ ] **Phase 4: Track D**
 - [ ] **Phase 5: Track E** (Verify Smart University Course Timetable Optimization against Track E requirements)
 - [ ] **Phase 6: Track F**
