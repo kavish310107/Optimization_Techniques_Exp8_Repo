@@ -1,0 +1,4 @@
+Method,Final Task 1 Loss,Final Task 2 Loss,Combined Loss (Sum)
+Equal Weighting (Baseline),6.6223,6.3128,12.9352
+MGDA (Pareto Stationary),6.3285,6.6131,12.9416
+GradNorm,6.3892,6.5499,12.9391

@@ -1,0 +1,4 @@
+Workers (p),Execution Time (ms),Measured Speedup (S_p),Parallel Efficiency,Loss,Amdahl Speedup (Predicted),Gustafson Speedup (Predicted)
+1,144.87,0.925,0.925,3.260728,1.0,1.0
+2,103.29,1.298,0.649,3.260728,1.181,1.307
+4,110.02,1.218,0.305,3.260728,1.299,1.92

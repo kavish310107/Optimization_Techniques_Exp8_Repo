@@ -1,0 +1,5 @@
+Method,Communication Rounds,Local Steps (E),Final Loss,Runtime (ms)
+Centralized Baseline,0,0,0.3806,63.4
+FedAvg (E=1),20,1,0.5227,51.91
+FedAvg (E=5),20,5,0.3936,213.2
+FedAvg (E=10),20,10,0.361,299.21

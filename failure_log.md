@@ -65,3 +65,16 @@ Entries must follow the format:
 - **Lesson Learned**:
   Always ensure all qiskit quantum information structures are explicitly imported at module level when writing standalone experiment scripts.
 
+---
+
+### Entry 005: Lazy Greedy Stale Bound Key Tracking in Max-Heap Priority Queue
+- **Timestamp / Phase**: Track D Implementation (Submodular Optimization)
+- **Symptom / Error Encountered**:
+  During early testing of Minoux's lazy greedy algorithm, item reinsertion into Python's `heapq` without updating the iteration stamp caused premature convergence and suboptimal subset selection.
+- **Root Cause Analysis**:
+  In submodular maximization, marginal gains $\Delta(e | S)$ can only decrease as the set $S$ expands. If a re-evaluated marginal gain is pushed back onto the priority queue without storing the current round index $t = |S|$, the algorithm cannot distinguish between an upper bound computed under the current set $S$ versus an earlier ancestor set $S' \subset S$.
+- **Resolution / Fix Applied**:
+  Implemented 3-tuple heap entries `(-upper_bound, item, iteration_stamp)`. An item popped from the heap is accepted only if `iteration_stamp == current_set_size`; otherwise, its marginal gain is freshly evaluated and re-pushed with `iteration_stamp = current_set_size`.
+- **Lesson Learned**:
+  Stale bound caching in priority queues requires explicit state-version timestamps to ensure strict mathematical equivalence to standard greedy selection.
+

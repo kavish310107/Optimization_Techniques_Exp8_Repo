@@ -22,7 +22,7 @@ This checklist tracks assignment requirements, deliverable status, testing statu
 | **Track A** | Fully Specified (Sec. 5 & 6) | Completed | 11/11 Passed | Generated (`results/track_a/`) | 🟢 Complete |
 | **Track B** | Fully Specified (Sec. 5 & 6) | Completed | 12/12 Passed | Generated (`results/track_b/`) | 🟢 Complete |
 | **Track C** | Fully Specified (Sec. 5 & 6) | Completed | 7/7 Passed | Generated (`results/track_c/`) | 🟢 Complete |
-| **Track D** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
+| **Track D** | Fully Specified (Sec. 5 & 6) | Completed | 9/9 Passed | Generated (`results/track_d/`) | 🟢 Complete |
 | **Track E** | Case Study Proposed (Timetabling) | Not Started | Not Started | Not Started | ⚪ Incomplete |
 | **Track F** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
 | **Track G** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
@@ -65,7 +65,13 @@ This checklist tracks assignment requirements, deliverable status, testing statu
   - [x] Barren plateau investigation: Exponential variance decay $\text{Var}[\partial E] \propto 2^{-n}$ across $N \in [2, 10]$ qubits.
   - [x] Comprehensive test suite (7 unit tests passed).
   - [x] Artifacts, tables, and plots saved to `results/track_c/`.
-- [ ] **Phase 4: Track D**
+- [x] **Phase 4: Track D (Submodular, Parallel & Distributed Optimization)**
+  - [x] Submodular optimization: Facility location / set coverage objective, diminishing returns verification, standard greedy and lazy greedy (heap-accelerated) selection, $(1 - 1/e)$ approximation verification against exact exhaustive search.
+  - [x] Parallel program optimization: Multi-core data parallelism on continuous optimization workload, speedup and parallel efficiency measurements, Amdahl's Law and Gustafson's Law theoretical parameter estimation ($s \approx 0.05$).
+  - [x] Distributed and federated optimization: Federated Averaging (FedAvg) vs. centralized training across varying local steps $E \in \{1, 5, 10\}$ and communication rounds on non-IID client distributions.
+  - [x] Multi-task Pareto optimization: Two-task conflicting regression model, analytical MGDA minimum-norm gradient solver, GradNorm dynamic weighting, and comparison against equal task weighting.
+  - [x] Comprehensive test suite (9 unit tests passed).
+  - [x] Artifacts, tables, and plots saved to `results/track_d/`.
 - [ ] **Phase 5: Track E** (Verify Smart University Course Timetable Optimization against Track E requirements)
 - [ ] **Phase 6: Track F**
 - [ ] **Phase 7: Track G**
