@@ -38,3 +38,17 @@ Entries must follow the format:
 - **Lesson Learned**:
   Accelerated first-order methods require strictly smaller step sizes than unaccelerated GD when ill-conditioned curvature exists, emphasizing the necessity of step-size tuning.
 
+---
+
+### Entry 003: Relative Import Failure Beyond Top-Level Package in Test Execution
+- **Timestamp / Phase**: Track B Implementation (Unit Test Setup)
+- **Symptom / Error Encountered**:
+  Running `pytest "track B/tests/test_track_b.py"` failed during test discovery with:
+  `ImportError: attempted relative import beyond top-level package` at `from ..problems.base import DiscreteSolution`.
+- **Root Cause Analysis**:
+  `track B/algorithms/solvers.py` utilized a two-dot relative import (`from ..problems...`), but when pytest executed the test file directly, `track B` was added to `sys.path` as a root folder rather than a subpackage of a parent package, making a parent-level traversal invalid.
+- **Resolution / Fix Applied**:
+  Updated the import in `track B/algorithms/solvers.py` to `from problems.base import DiscreteSolution`, maintaining clean modular resolution compatible with both pytest runs and direct module execution.
+- **Lesson Learned**:
+  Inside individual track directories designed as standalone modules, keep intra-track imports relative to the track root or absolute within the track namespace.
+

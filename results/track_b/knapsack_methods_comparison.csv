@@ -1,0 +1,5 @@
+Method,Objective Value,Feasible,Optimality Gap (%),Runtime (ms),Items Selected
+Greedy (Density),549.0,True,0.0,0.271,8
+Dynamic Programming,549.0,True,0.0,1.889,8
+Branch and Bound,549.0,True,0.0,0.639,8
+ILP (SciPy HiGHS),549.0,True,0.0,22.705,8

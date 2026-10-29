@@ -1,0 +1,4 @@
+Method,Max Cut Weight,Ising Energy H(s),Optimality Gap (%),Runtime (ms),Spin Configuration
+Exact Classical Ground State,101.0,-101.0,0.0,22.086,"[1.0, -1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0]"
+Simulated Annealing (QUBO),101.0,-101.0,0.0,3935.168,"[1, -1, -1, -1, 1, 1, -1, 1]"
+Greedy Local Search,82.0,-82.0,18.81,2.232,"[-1, 1, 1, -1, -1, 1, -1, 1]"

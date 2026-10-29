@@ -36,10 +36,29 @@ This report compiles the methodology, mathematical formulations, algorithmic imp
   - Tables: `convex_quadratic_results.csv`, `rosenbrock_results.csv`, `saddle_escape_results.csv`, `gauss_newton_vs_gd.csv`, `mlp_training_results.csv`, `lr_sensitivity.csv`, `curvature_and_hvp_results.csv`.
   - Figures: `convex_quadratic_convergence.png`, `rosenbrock_convergence.png`, `saddle_escape.png`, `gauss_newton_comparison.png`, `mlp_backprop_training.png`, `lr_sensitivity.png`.
 
-### 2.2 Track B
-- Problem definition & formulation
-- Algorithmic approaches
-- Empirical setup & evaluation metrics
+### 2.2 Track B: Discrete Optimization
+- **Problem Formulations**:
+  - **0-1 Knapsack Problem**: Combinatorial maximization of $\sum_{i=1}^n v_i x_i$ subject to capacity constraint $\sum_{i=1}^n w_i x_i \le W$ with binary variables $x_i \in \{0, 1\}$.
+  - **Max-Cut Problem**: Graph partitioning maximizing cut edge weights $\sum_{i < j} w_{ij} (x_i + x_j - 2 x_i x_j)$.
+  - **QUBO (Quadratic Unconstrained Binary Optimization)**: Formulates Max-Cut as minimization $\min x^T Q x$, where $Q_{ii} = -\sum_j w_{ij}$ and $Q_{ij} = w_{ij}$.
+  - **Ising Spin Model Formulation**: Exact binary-to-spin substitution $s_i = 1 - 2x_i \in \{-1, +1\}$. Energy Hamiltonian $H(s) = \sum_{i<j} \frac{w_{ij}}{2} s_i s_j - \frac{1}{2} \sum_{i<j} w_{ij}$. Ground-state energy corresponds directly to the maximum cut: $\min H(s) = - \max \text{Cut}(x)$.
+  - **Penalty Terms for Constraints**: Penalty formulation $P \cdot \max(0, w^T x - W)^2$ converting constrained discrete problems into QUBOs.
+- **Algorithms Evaluated**:
+  - **Greedy Heuristic**: Value-to-weight density sorting $O(n \log n)$; Sahni-Gonzales local search for Max-Cut.
+  - **Dynamic Programming (DP)**: Exact Bellman table recursion $O(n W)$.
+  - **Branch and Bound (B&B)**: DFS tree search with greedy continuous linear relaxation fractional upper bounds and bounding pruning.
+  - **Integer Linear Programming (ILP)**: SciPy HiGHS branch-and-cut solver (`milp`).
+  - **Simulated Annealing (SA)**: Thermal stochastic local search for QUBO minimization.
+  - **Exact Classical Ground-State Solver**: Exhaustive state enumeration for classical baseline verification.
+- **Key Empirical Findings**:
+  - **Knapsack Exactness & Runtime**: On a 15-item instance, DP ($1.89$ ms), Branch and Bound ($0.64$ ms), and ILP ($22.7$ ms) all found the exact global optimum of $549.0$. Greedy density heuristic achieved the exact optimum with zero optimality gap in $0.27$ ms.
+  - **Scalability vs. $N$**: Greedy and DP scaled smoothly ($< 2$ ms up to $N=100$), whereas unpruned Branch-and-Bound exhibits combinatorial explosion ($O(2^n)$ in worst-case instances). ILP (HiGHS) demonstrated robust industrial-scale branch-and-cut performance across all problem sizes ($< 25$ ms).
+  - **Max-Cut Classical Baseline for Track C**: On an 8-node complete weighted graph, the Exact Classical Ground State achieved maximum cut $101.0$ (Ising ground state energy $-101.0$) in $22.1$ ms with spin configuration $[+1, -1, -1, -1, +1, +1, -1, +1]$. Simulated Annealing on QUBO found the exact optimal cut ($101.0$, $0.0\%$ gap), while Greedy local search found cut $82.0$ ($18.8\%$ gap).
+  - **QUBO Penalty Multiplier Dynamics**: When penalty multiplier $P < 2.5$, the capacity constraint was violated (excess weight up to $+19$). At $P \ge 2.5$ ($\ge \max_i v_i / w_i$), constraint violations dropped to zero, validating the theoretical penalty threshold.
+- **Artifacts Generated**:
+  - Tables: `knapsack_methods_comparison.csv`, `scalability_benchmark.csv`, `maxcut_qubo_ising_baseline.csv`, `qubo_penalty_tuning.csv`.
+  - Figures: `knapsack_methods_comparison.png`, `scalability_runtime.png`, `maxcut_classical_baseline.png`, `qubo_penalty_tuning.png`.
+  - Stored Matrices for Track C: `track_b_maxcut_W.npy` (adjacency matrix), `track_b_maxcut_Q.npy` (QUBO matrix).
 
 ### 2.3 Track C
 - Problem definition & formulation

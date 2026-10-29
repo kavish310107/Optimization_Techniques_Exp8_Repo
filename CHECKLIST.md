@@ -20,7 +20,7 @@ This checklist tracks assignment requirements, deliverable status, testing statu
 | Track | Specification Status | Implementation Status | Test & Validation Status | Results Generated | Track Completion |
 |:---:|:---:|:---:|:---:|:---:|:---:|
 | **Track A** | Fully Specified (Sec. 5 & 6) | Completed | 11/11 Passed | Generated (`results/track_a/`) | 🟢 Complete |
-| **Track B** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
+| **Track B** | Fully Specified (Sec. 5 & 6) | Completed | 12/12 Passed | Generated (`results/track_b/`) | 🟢 Complete |
 | **Track C** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
 | **Track D** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
 | **Track E** | Case Study Proposed (Timetabling) | Not Started | Not Started | Not Started | ⚪ Incomplete |
@@ -46,7 +46,16 @@ This checklist tracks assignment requirements, deliverable status, testing statu
   - [x] Empirical comparisons: Convergence curves, runtime, distance to optimum, learning rate sensitivity.
   - [x] Comprehensive test suite (11 unit tests passed).
   - [x] Artifacts, tables, and plots saved to `results/track_a/`.
-- [ ] **Phase 2: Track B**
+- [x] **Phase 2: Track B (Discrete Optimization)**
+  - [x] Combinatorial formulations: 0-1 Knapsack and Max-Cut graph partitioning.
+  - [x] Greedy algorithms: Density-ratio knapsack packing and local search cut maximization.
+  - [x] Dynamic Programming: Bellman recursion table algorithm $O(n W)$.
+  - [x] Branch and Bound: Fractional LP continuous relaxation bounding with subtree pruning.
+  - [x] Integer Linear Programming (ILP): SciPy HiGHS branch-and-cut optimization.
+  - [x] QUBO & Ising formulation: Binary-to-spin conversion ($s_i = 1 - 2x_i$), Hamiltonian energy evaluation, quadratic constraint penalty tuning.
+  - [x] Classical baseline for Track C: Exact classical ground state, matrices ($W, Q$), and metrics exported to `results/track_b/`.
+  - [x] Comprehensive test suite (12 unit tests passed).
+  - [x] Artifacts, tables, and plots saved to `results/track_b/`.
 - [ ] **Phase 3: Track C**
 - [ ] **Phase 4: Track D**
 - [ ] **Phase 5: Track E** (Verify Smart University Course Timetable Optimization against Track E requirements)

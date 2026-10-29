@@ -1,0 +1,8 @@
+Penalty Multiplier (P),Total Value,Total Weight,Capacity,Capacity Violation,Feasible,Runtime (ms)
+0.1,125.0,33.0,14.0,19.0,False,6350.64
+0.5,70.0,18.0,14.0,4.0,False,4486.79
+1.0,60.0,16.0,14.0,2.0,False,3936.07
+2.5,55.0,14.0,14.0,0.0,True,4249.65
+5.0,55.0,14.0,14.0,0.0,True,4165.93
+10.0,50.0,13.0,14.0,0.0,True,3751.1
+20.0,50.0,13.0,14.0,0.0,True,4227.11
