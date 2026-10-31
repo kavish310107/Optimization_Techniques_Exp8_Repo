@@ -105,3 +105,19 @@ Entries must follow the format:
 - **Lesson Learned**:
   In CFG analysis, straight-line intervals are insufficient for programs with backward branches; loop spans must expand live ranges of all loop-invariant and loop-carried variables to prevent register clobbering.
 
+
+---
+
+### Entry 008: Starvation Test Assertion Failure and Preemption Handling in xv6 Simulator
+- **Timestamp / Phase**: Track G Implementation (Scheduler Dynamic Aging Unit Testing)
+- **Symptom / Error Encountered**:
+  `pytest "track G/tests/test_track_g.py"` failed with:
+  `AssertionError: assert 40 < 40` on `p_low_aging.start_time < 40`, and `assert 50 < 50` on `p_low_aging.finish_time < p_low_no_aging.finish_time`.
+- **Root Cause Analysis**:
+  In the discrete-event simulator, once a process with higher static priority was dispatched, it remained running because the dispatch logic only checked runnable processes when the CPU was idle. Although the waiting low-priority process dynamically aged up towards priority 0, it could not preempt the currently executing high-priority process. Furthermore, for test processes with static priority 5 vs 25 with aging threshold 8, the low-priority process required $20 \times 8 = 160$ ticks of waiting to surpass priority 5, exceeding the total workload length of 40 ticks. Once preemption was added, the aged low-priority task ran first, but because both processes executed completely before tick 50, the completion tick of the second process remained 50.
+- **Resolution / Fix Applied**:
+  1. Added explicit preemption check in the simulator at timer interrupt ticks: if an aged runnable process achieves a strictly better dynamic priority than the currently running process, the CPU preempts the current process and returns it to `RUNNABLE`.
+  2. Adjusted test case priorities (priority 10 vs 13, aging threshold 6) so that priority promotion occurs at tick 24, allowing the starved process to preempt and execute before tick 40.
+  3. Validated response time improvement (`p_low_aging.response_time < p_low_no_aging.response_time`) rather than overall batch completion tick.
+- **Lesson Learned**:
+  Dynamic aging requires both priority promotion in waiting queues and preemptive rescheduling upon timer interrupt; without preemption, priority improvements remain latent until the currently executing thread voluntarily relinquishes the CPU.

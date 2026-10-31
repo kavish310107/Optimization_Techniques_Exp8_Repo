@@ -45,7 +45,7 @@ A comprehensive investigation and implementation of optimization methodologies a
 | **Track D** | Submodular, Parallel & Distributed Optimization | Greedy & Lazy Greedy, Amdahl/Gustafson parallel scaling, FedAvg, MGDA & GradNorm | Completed |
 | **Track E** | Main Real-Process Case Study: University Course Timetable Optimization | Greedy (Difficulty-First) vs. Exact Integer Linear Programming (SciPy HiGHS) | Completed |
 | **Track F** | Compiler Optimization | MiniLang compiler, 4 optimizations (CFP, DCE, CSE, SR), ILP/Greedy Register Allocation | Completed |
-| **Track G** | Pending specification | TBD | Not Started |
+| **Track G** | Operating-System Optimization | xv6 Priority Scheduler with Dynamic Aging, unified kernel patch, discrete-event OS simulator | Completed |
 | **Track H** | Pending specification | TBD | Not Started |
 | **Track I** | Pending specification | TBD | Not Started |
 | **Track J** | Pending specification | TBD | Not Started |
@@ -146,6 +146,18 @@ Run experimental benchmarks and generate visualizations:
 python "track F/experiments/runner.py"
 ```
 Generated artifacts, CSV benchmark tables, and optimization comparison bar charts are saved in `results/track_f/`.
+
+### Track G: Operating-System Optimization
+Run tests:
+```bash
+python -m pytest "track G/tests/test_track_g.py" -v
+```
+Run experimental benchmarks and generate visualizations:
+```bash
+python "track G/experiments/run_benchmarks.py"
+```
+Generated unified kernel patch is located at `track G/patch/xv6_priority_scheduler.patch`.
+Generated artifacts, CSV benchmark tables, and scheduler performance comparison bar charts are saved in `results/track_g/`.
 
 ---
 

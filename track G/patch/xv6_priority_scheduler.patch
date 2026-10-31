@@ -1,0 +1,133 @@
+--- a/kernel/proc.h
++++ b/kernel/proc.h
+@@ -83,4 +83,14 @@ struct proc {
+   struct file *ofile[NOFILE];  // Open files
+   struct inode *cwd;           // Current directory
+   char name[16];               // Process name (debugging)
++
++  // Track G: Priority Scheduler and Dynamic Aging fields
++  int priority;                // Static base priority (0 to 31, default 16, 0 = highest)
++  int dynamic_priority;        // Effective dynamic priority accounting for aging
++  int ticks;                   // CPU ticks accumulated while in RUNNING state
++  int wait_ticks;              // Ticks spent in RUNNABLE state since last CPU dispatch
+ };
++
++#define DEFAULT_PRIORITY 16
++#define MAX_PRIORITY 31
++#define MIN_PRIORITY 0
++#define AGING_THRESHOLD 10     // Promote dynamic priority after 10 wait ticks
+--- a/kernel/proc.c
++++ b/kernel/proc.c
+@@ -438,20 +438,44 @@ scheduler(void)
+   for(;;){
+     intr_on();
+ 
+-    for(p = proc; p < &proc[NPROC]; p++) {
++    struct proc *best_proc = 0;
++    int highest_prio = MAX_PRIORITY + 1; // 32 is lower priority than all valid (0-31)
++
++    // Age waiting RUNNABLE processes to prevent starvation
++    for(p = proc; p < &proc[NPROC]; p++) {
+       acquire(&p->lock);
+       if(p->state == RUNNABLE) {
+-        p->state = RUNNING;
+-        c->proc = p;
+-        swtch(&c->context, &p->context);
+-        c->proc = 0;
++        p->wait_ticks++;
++        if(p->wait_ticks >= AGING_THRESHOLD) {
++          if(p->dynamic_priority > MIN_PRIORITY) {
++            p->dynamic_priority--; // Elevate priority towards 0
++          }
++          p->wait_ticks = 0;
++        }
++
++        // Find the runnable process with the best dynamic priority
++        if(p->dynamic_priority < highest_prio) {
++          if(best_proc)
++            release(&best_proc->lock);
++          best_proc = p;
++          highest_prio = p->dynamic_priority;
++          continue; // keep lock held on candidate
++        }
+       }
+       release(&p->lock);
+     }
++
++    if(best_proc != 0) {
++      best_proc->wait_ticks = 0;
++      best_proc->state = RUNNING;
++      c->proc = best_proc;
++      
++      swtch(&c->context, &best_proc->context);
++
++      c->proc = 0;
++      if(best_proc->dynamic_priority < best_proc->priority) {
++        best_proc->dynamic_priority++;
++      }
++      release(&best_proc->lock);
++    }
+   }
+ }
++
++int
++setpriority(int pid, int new_priority)
++{
++  if(new_priority < MIN_PRIORITY || new_priority > MAX_PRIORITY)
++    return -1;
++
++  struct proc *p;
++  for(p = proc; p < &proc[NPROC]; p++){
++    acquire(&p->lock);
++    if(p->pid == pid && p->state != UNUSED){
++      p->priority = new_priority;
++      p->dynamic_priority = new_priority;
++      p->wait_ticks = 0;
++      release(&p->lock);
++      return 0;
++    }
++    release(&p->lock);
++  }
++  return -1;
++}
+--- a/kernel/syscall.h
++++ b/kernel/syscall.h
+@@ -20,3 +20,7 @@
+ #define SYS_mkdir  20
+ #define SYS_close  21
++#define SYS_setpriority 22
++#define SYS_getpinfo    23
+--- a/kernel/sysproc.c
++++ b/kernel/sysproc.c
+@@ -89,3 +89,28 @@ sys_uptime(void)
+   release(&tickslock);
+   return xticks;
+ }
++
++uint64
++sys_setpriority(void)
++{
++  int pid, priority;
++  argint(0, &pid);
++  argint(1, &priority);
++  return setpriority(pid, priority);
++}
++
++uint64
++sys_getpinfo(void)
++{
++  uint64 st_addr;
++  argaddr(0, &st_addr);
++  if(st_addr == 0)
++    return -1;
++
++  struct pstat st;
++  if(getpinfo(&st) < 0)
++    return -1;
++
++  if(copyout(myproc()->pagetable, st_addr, (char *)&st, sizeof(st)) < 0)
++    return -1;
++
++  return 0;
++}
+

@@ -25,7 +25,7 @@ This checklist tracks assignment requirements, deliverable status, testing statu
 | **Track D** | Fully Specified (Sec. 5 & 6) | Completed | 9/9 Passed | Generated (`results/track_d/`) | 🟢 Complete |
 | **Track E** | Case Study Verified & Specified | Completed | 7/7 Passed | Generated (`results/track_e/`) | 🟢 Complete |
 | **Track F** | Fully Specified (Sec. 5 & 6) | Completed | 8/8 Passed | Generated (`results/track_f/`) | 🟢 Complete |
-| **Track G** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
+| **Track G** | Fully Specified (Sec. 5 & 6) | Completed | 6/6 Passed | Generated (`results/track_g/`) | 🟢 Complete |
 | **Track H** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
 | **Track I** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
 | **Track J** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
@@ -91,7 +91,15 @@ This checklist tracks assignment requirements, deliverable status, testing statu
   - [x] Correctness verification: Tested 100% output equivalence between unoptimized and optimized code.
   - [x] Comprehensive test suite (8 unit tests passed).
   - [x] Artifacts, benchmark tables, and comparative plots saved to `results/track_f/`.
-- [ ] **Phase 7: Track G**
+- [x] **Phase 7: Track G (Operating-System Optimization)**
+  - [x] Target optimization: Priority-Based Process Scheduler with Dynamic Aging in MIT xv6-riscv.
+  - [x] Kernel source modifications: PCB extensions (`priority`, `dynamic_priority`, `wait_ticks`), priority scheduler loop, dynamic aging promotion, and syscalls `setpriority` / `getpinfo`.
+  - [x] Unified kernel patch: Generated `xv6_priority_scheduler.patch`.
+  - [x] Discrete-event simulator: Built cycle-accurate xv6 scheduler simulator reproducing state transitions, quantum yields, and aging.
+  - [x] Empirical evaluation across 3 workloads: CPU-Bound Batch, Interactive I/O Burst, and Mixed Heterogeneous.
+  - [x] Metrics evaluated: Turnaround time, waiting time, response time, context switches, and Jain's Fairness Index.
+  - [x] Comprehensive test suite (6 unit tests passed).
+  - [x] Artifacts, tables, and performance plots saved to `results/track_g/`.
 - [ ] **Phase 8: Track H**
 - [ ] **Phase 9: Track I**
 - [ ] **Phase 10: Track J**

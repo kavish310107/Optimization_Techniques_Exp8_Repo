@@ -142,10 +142,38 @@ This report compiles the methodology, mathematical formulations, algorithmic imp
   - Tables: `results/track_f/compiler_benchmark_results.csv`.
   - Figures: `results/track_f/compiler_optimizations_comparison.png`.
 
-### 2.7 Track G
-- Problem definition & formulation
-- Algorithmic approaches
-- Empirical setup & evaluation metrics
+### 2.7 Track G: Operating-System Optimization
+- **Problem Definition & Formulation**:
+  - Investigates operating-system process scheduling in the teaching kernel **MIT xv6-riscv**.
+  - Default xv6 implements a basic Round-Robin (RR) scheduler that treats every process equally, introducing high turnaround times for urgent tasks and lacking QoS differentiation.
+  - Optimization Goal: Implement a **Priority-Based Process Scheduler with Dynamic Aging and Starvation Mitigation**.
+  - Priority Formulation: Static base priority $P_{\text{base}} \in [0, 31]$ (0 = highest priority, 31 = lowest idle background priority). Dynamic effective priority $P_{\text{dyn}} = \max(0, P_{\text{base}} - \lfloor W / \tau \rfloor)$, where $W$ is elapsed wait ticks in the `RUNNABLE` queue and $\tau = 10$ is the aging threshold.
+- **Kernel Implementation & System Architecture**:
+  - *PCB Modifications* (`kernel/proc.h`): Extended `struct proc` with `int priority`, `int dynamic_priority`, `int ticks`, and `int wait_ticks`.
+  - *Scheduler Loop* (`kernel/proc.c`): Replaced linear RR scan with priority scan selecting the lowest $P_{\text{dyn}}$ runnable process; incorporates in-loop dynamic aging of waiting processes and preemption upon arrival of higher priority tasks.
+  - *Dynamic Priority Decay*: When an aged process runs on the CPU, its dynamic priority decays back towards its static priority upon quantum expiration.
+  - *System Calls* (`kernel/syscall.h`, `kernel/sysproc.c`): Added `setpriority(pid, prio)` (ID 22) and `getpinfo(&pstat)` (ID 23) for user-space scheduling control and observability.
+  - *Unified Patch*: Generated unified kernel patch `track G/patch/xv6_priority_scheduler.patch`.
+  - *Discrete-Event OS Simulator* (`track G/simulator/scheduler_sim.py`): Cycle-accurate simulator modeling xv6 PCB lifecycle (`UNUSED`, `RUNNABLE`, `RUNNING`, `SLEEPING`, `ZOMBIE`), timer ticks, I/O burst sleep/wake transitions, and preemption.
+- **Workloads & Evaluation Setup**:
+  - Three heterogeneous workloads:
+    1. *CPU-Bound Batch*: 5 compute-heavy processes with varying static priorities (4 to 28).
+    2. *Interactive I/O Burst*: 2 high-priority interactive tasks with frequent I/O blocks vs 2 low-priority compute jobs.
+    3. *Mixed Heterogeneous*: 6 tasks with staggered arrival times, varying burst lengths, and mixed I/O frequencies.
+  - Evaluated Policies: Default Round-Robin (RR), Priority Scheduler with Dynamic Aging, and Priority Scheduler without Aging.
+  - Metrics: Average Turnaround Time, Average Waiting Time, Average Response Time, Total Context Switches, and Jain's Fairness Index.
+- **Key Empirical Findings**:
+  - *Turnaround Time Reduction*: Priority scheduling reduced average turnaround time across all workloads:
+    - CPU-Bound Batch: Reduced from $190.6$ ticks (RR) to **$129.4$ ticks** (**-32.1%**).
+    - Interactive I/O Burst: Reduced from $136.75$ ticks (RR) to **$102.0$ ticks** (**-25.4%**).
+    - Mixed Heterogeneous: Reduced from $149.83$ ticks (RR) to **$116.83$ ticks** (**-22.0%**).
+  - *Starvation Mitigation via Dynamic Aging*: Static priority without aging starved low-priority processes, resulting in an average response time of $82.0$ ticks on CPU-bound batches and $32.25$ ticks on interactive bursts. Enabling dynamic aging with threshold $\tau=10$ reduced response times to **$64.8$ ticks** (-21.0%) and **$12.0$ ticks** (-62.8%), ensuring all processes receive CPU cycles without starvation.
+  - *Fairness vs Differentiation*: Default Round-Robin achieved high Jain's fairness indices ($0.866$–$0.983$) by distributing time slices evenly regardless of urgency. Priority scheduling deliberately trades uniform fairness ($0.701$–$0.779$) for low-latency dispatch of critical and interactive tasks.
+- **Artifacts Generated**:
+  - Unified Patch: `track G/patch/xv6_priority_scheduler.patch`.
+  - Kernel Files: `track G/xv6-source/kernel/` (`proc.h`, `proc.c`, `pstat.h`, `syscall.h`, `sysproc.c`) and `user/` (`user.h`, `usys.pl`, `priority_test.c`).
+  - Tables: `results/track_g/scheduler_benchmark_results.csv`.
+  - Figures: `results/track_g/scheduler_performance.png`.
 
 ### 2.8 Track H
 - Problem definition & formulation
