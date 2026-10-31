@@ -4,6 +4,20 @@ A comprehensive investigation and implementation of optimization methodologies a
 
 ---
 
+## Final Technical Report
+
+The comprehensive academic and technical report for this assignment is available in two formats:
+- **PDF Report**: [`docs/FINAL_TECHNICAL_REPORT.pdf`](docs/FINAL_TECHNICAL_REPORT.pdf) (Polished 16-page publication-quality document matching course specifications).
+- **Markdown Source**: [`docs/FINAL_TECHNICAL_REPORT.md`](docs/FINAL_TECHNICAL_REPORT.md) (Full editable technical report source).
+- **Report Generator**: [`tools/generate_technical_report.py`](tools/generate_technical_report.py) (Reproducible Python script powered by ReportLab Platypus).
+
+To regenerate the technical report PDF directly from repository artifacts:
+```bash
+python tools/generate_technical_report.py
+```
+
+---
+
 ## Repository Structure
 
 ```text
