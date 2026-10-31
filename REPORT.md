@@ -123,10 +123,24 @@ This report compiles the methodology, mathematical formulations, algorithmic imp
   - Figures: `results/track_e/timetable_algorithm_comparison.png`, `results/track_e/timetable_grid_greedy_medium.png`, `results/track_e/timetable_grid_ilp_medium.png`.
   - Documentation: Detailed mathematical write-up in `docs/track_e_formulation.md`.
 
-### 2.6 Track F
-- Problem definition & formulation
-- Algorithmic approaches
-- Empirical setup & evaluation metrics
+### 2.6 Track F: Compiler Optimization
+- **Compiler Architecture**:
+  - Implemented a complete pipeline for MiniLang: Lexer (regex tokenization), Parser (recursive descent AST builder), Intermediate Representation generator (linear 3-Address Code / TAC), Optimization passes, Register Allocator, and a 3-Address Code Virtual Machine (`TACVirtualMachine`).
+- **Compulsory Optimizations Implemented**:
+  1. *Constant Folding & Propagation (CFP)*: Precomputes arithmetic expressions on literal constants and propagates assigned constants, with conservative control-flow clearing at labels/jumps.
+  2. *Dead-Code Elimination (DCE)*: Recursively strips assignments to variables and temporaries whose values are never subsequently referenced.
+  3. *Common Subexpression Elimination (CSE)*: Caches identical arithmetic expressions within basic blocks, reusing prior computations.
+  4. *Strength Reduction (SR)*: Replaces multiplication and division primitives with addition or identity assignments ($x \times 2 \to x + x$, $x \times 1 \to x$, $x \times 0 \to 0$, $x / 1 \to x$).
+- **Compiler Decision as Chapter 6 Optimization**:
+  - *Register Allocation via Graph Coloring*: Variables' live intervals are analyzed (extending across loop boundaries for backward branches) to construct the interference graph $G = (V, E)$. Formulated as an exact Integer Linear Program (ILP via HiGHS) minimizing chromatic number/total registers used subject to $\sum_c x_{v, c} = 1$ and $x_{u, c} + x_{v, c} \le 1$, compared against the greedy Welsh-Powell heuristic.
+- **Empirical Findings & Correctness**:
+  - *Instruction Reduction*: Reductions ranged from $12.5\%$ on loop programs up to $90.0\%$ on dead-code and constant-heavy programs.
+  - *Dynamic Execution Savings*: On a complex while-loop benchmark, dynamic VM cycles dropped from $61$ down to $51$ cycles ($16.4\%$ reduction).
+  - *Correctness*: Observable program outputs were verified across all test programs ($100\%$ output equivalence between unoptimized and optimized versions).
+  - *Register Allocation*: ILP and greedy coloring both successfully allocated physical registers with zero clashing on live overlapping intervals.
+- **Artifacts Generated**:
+  - Tables: `results/track_f/compiler_benchmark_results.csv`.
+  - Figures: `results/track_f/compiler_optimizations_comparison.png`.
 
 ### 2.7 Track G
 - Problem definition & formulation

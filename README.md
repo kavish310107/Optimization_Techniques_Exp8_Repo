@@ -44,7 +44,7 @@ A comprehensive investigation and implementation of optimization methodologies a
 | **Track C** | Quantum Optimization (Chapter 6 methods) | QAOA, VQE, Parameter-Shift, SPSA, QNG, Barren Plateau analysis | Completed |
 | **Track D** | Submodular, Parallel & Distributed Optimization | Greedy & Lazy Greedy, Amdahl/Gustafson parallel scaling, FedAvg, MGDA & GradNorm | Completed |
 | **Track E** | Main Real-Process Case Study: University Course Timetable Optimization | Greedy (Difficulty-First) vs. Exact Integer Linear Programming (SciPy HiGHS) | Completed |
-| **Track F** | Pending specification | TBD | Not Started |
+| **Track F** | Compiler Optimization | MiniLang compiler, 4 optimizations (CFP, DCE, CSE, SR), ILP/Greedy Register Allocation | Completed |
 | **Track G** | Pending specification | TBD | Not Started |
 | **Track H** | Pending specification | TBD | Not Started |
 | **Track I** | Pending specification | TBD | Not Started |
@@ -75,7 +75,7 @@ pip install -r requirements.txt
 
 | AI Tool / Model | Version / Interface | Tracks | Date(s) | Activities / Contributions |
 |:---|:---|:---|:---|:---|
-| **Gemini (Antigravity Assistant)** | Gemini 3.8 Flash (Low) | Setup, Tracks A, B, C, D, E | 2026-10-28 to 2026-10-31 | Architecture design, algorithm implementation, unit testing, benchmark execution, documentation |
+| **Gemini (Antigravity Assistant)** | Gemini 3.8 Flash (Low) | Setup, Tracks A, B, C, D, E, F | 2026-10-28 to 2026-10-31 | Architecture design, algorithm implementation, unit testing, benchmark execution, documentation |
 
 ---
 
@@ -135,6 +135,17 @@ Run experimental benchmarks and generate visualizations:
 python "track E/experiments/runner.py"
 ```
 Generated artifacts, CSV benchmark tables, and schedule occupancy grid plots are saved in `results/track_e/`.
+
+### Track F: Compiler Optimization
+Run tests:
+```bash
+python -m pytest "track F/tests/test_track_f.py" -v
+```
+Run experimental benchmarks and generate visualizations:
+```bash
+python "track F/experiments/runner.py"
+```
+Generated artifacts, CSV benchmark tables, and optimization comparison bar charts are saved in `results/track_f/`.
 
 ---
 

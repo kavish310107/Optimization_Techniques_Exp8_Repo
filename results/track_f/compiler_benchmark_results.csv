@@ -1,0 +1,6 @@
+Program,Unopt Instructions,Opt Instructions,Instruction Reduction (%),Unopt Cycles,Opt Cycles,Cycle Reduction (%),Output Preserved,Program Output,Registers (Greedy),Registers (ILP),Compile Time (ms),VM Runtime (ms)
+Program_1_Constant_Folding,8,1,87.5,8,1,87.5,True,[45],0,0,2.519,0.005
+Program_2_Common_Subexpression,15,3,80.0,15,3,80.0,True,"[30, 40, 40]",0,0,0.941,0.004
+Program_3_Strength_Reduction,16,5,68.8,16,5,68.8,True,"[28, 14, 0, 14, 14]",0,0,1.017,0.007
+Program_4_Dead_Code,10,1,90.0,10,1,90.0,True,[105],0,0,0.623,0.002
+Program_5_Complex_Loop,16,14,12.5,61,51,16.4,True,[30],7,7,1.141,0.107

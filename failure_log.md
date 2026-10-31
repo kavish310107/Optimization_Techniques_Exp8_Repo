@@ -92,3 +92,16 @@ Entries must follow the format:
 - **Lesson Learned**:
   Follow standard track-root-relative package naming across all modules to preserve compatibility between standalone execution and pytest discovery.
 
+---
+
+### Entry 007: Register Interference Across Loops in Graph Coloring
+- **Timestamp / Phase**: Track F Implementation (Register Allocation Live Range Analysis)
+- **Symptom / Error Encountered**:
+  Executing an optimized while-loop program in the Virtual Machine with ILP register allocation caused an infinite loop (100,000 cycles timeout) while the unoptimized code finished in 42 cycles.
+- **Root Cause Analysis**:
+  Simple linear-scan interval analysis `[first_seen, last_seen]` recorded `n = 5` as last seen at its definition and comparison instructions. Because `n` was not modified inside the loop body, the linear scan failed to mark `n` as interfering with temporary variables defined later in the loop body (`_t2`, `_t3`). The ILP solver assigned both `n` and `_t2` to register `R0`, causing `_t2 = fact * i` to overwrite `n = 5` with `1`, corrupting the termination condition.
+- **Resolution / Fix Applied**:
+  Implemented loop-aware backward branch analysis: any variable whose live range spans across a backward `JUMP` instruction has its live interval extended across the entire loop span `[loop_start, loop_end]`.
+- **Lesson Learned**:
+  In CFG analysis, straight-line intervals are insufficient for programs with backward branches; loop spans must expand live ranges of all loop-invariant and loop-carried variables to prevent register clobbering.
+

@@ -24,7 +24,7 @@ This checklist tracks assignment requirements, deliverable status, testing statu
 | **Track C** | Fully Specified (Sec. 5 & 6) | Completed | 7/7 Passed | Generated (`results/track_c/`) | 🟢 Complete |
 | **Track D** | Fully Specified (Sec. 5 & 6) | Completed | 9/9 Passed | Generated (`results/track_d/`) | 🟢 Complete |
 | **Track E** | Case Study Verified & Specified | Completed | 7/7 Passed | Generated (`results/track_e/`) | 🟢 Complete |
-| **Track F** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
+| **Track F** | Fully Specified (Sec. 5 & 6) | Completed | 8/8 Passed | Generated (`results/track_f/`) | 🟢 Complete |
 | **Track G** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
 | **Track H** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
 | **Track I** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
@@ -82,7 +82,15 @@ This checklist tracks assignment requirements, deliverable status, testing statu
   - [x] Empirical evaluation across Small, Medium, Large instances (Feasibility, violations, penalties, utilization, runtime).
   - [x] Comprehensive test suite (7 unit tests passed).
   - [x] Artifacts, tables, and schedule grid occupancy plots saved to `results/track_e/`.
-- [ ] **Phase 6: Track F**
+- [x] **Phase 6: Track F (Compiler Optimization)**
+  - [x] MiniLang compiler frontend: Lexer, recursive descent parser, AST construction (variables, conditionals, while-loops, prints).
+  - [x] Intermediate Representation: Linear 3-Address Code (TAC), temporary variables, branch labels, IR generator.
+  - [x] Four compulsory optimizations: Constant Folding & Propagation, Dead-Code Elimination, Common Subexpression Elimination, Strength Reduction.
+  - [x] Compiler decision posed as Chapter 6 optimization: Register Allocation via Graph Coloring (ILP HiGHS solver vs. Greedy Welsh-Powell).
+  - [x] Code execution: 3-Address Code Virtual Machine (`TACVirtualMachine`) evaluating dynamic cycle counts and runtime.
+  - [x] Correctness verification: Tested 100% output equivalence between unoptimized and optimized code.
+  - [x] Comprehensive test suite (8 unit tests passed).
+  - [x] Artifacts, benchmark tables, and comparative plots saved to `results/track_f/`.
 - [ ] **Phase 7: Track G**
 - [ ] **Phase 8: Track H**
 - [ ] **Phase 9: Track I**
