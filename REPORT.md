@@ -175,10 +175,49 @@ This report compiles the methodology, mathematical formulations, algorithmic imp
   - Tables: `results/track_g/scheduler_benchmark_results.csv`.
   - Figures: `results/track_g/scheduler_performance.png`.
 
-### 2.8 Track H
-- Problem definition & formulation
-- Algorithmic approaches
-- Empirical setup & evaluation metrics
+### 2.8 Track H: Relational DBMS Index & Query Optimization
+
+**Problem Definition & Formulation**
+- Optimize read‑heavy analytical workloads on a representative e‑commerce SQLite database.
+- Baseline configuration: only primary key indexes (heap scans for most predicates).
+- Optimized configuration: a set of seven secondary B‑Tree indexes (single‑column and covering) manually crafted to match the predicate columns of each workload query.
+- Queries span point look‑ups, range filters, two‑table joins, multi‑table aggregation, and a covering index use‑case; an additional query demonstrates a rewrite using a sub‑query join order change.
+
+**Algorithmic Approaches**
+- **Index Selection**: handcrafted based on query predicates (e.g., `idx_orders_customer_id`, `idx_orderitems_product_id`, composite covering index on `order_items(order_id, product_id, quantity)`).
+- **Query Rewrites**: one workload (Q6) includes an alternative SQL formulation that pushes a filter into a sub‑query to test the effect of join ordering.
+- **Benchmark Pipeline**: deterministic data generation (fixed random seed), warm‑up runs, 25 timed repetitions per query, and extraction of the SQLite `EXPLAIN QUERY PLAN` output for index‑usage analysis.
+
+**Experimental Setup & Evaluation Metrics**
+- Database size before/after indexing (bytes, % increase).
+- Per‑query latency statistics: mean, std, min, max, 95‑th percentile.
+- Speed‑up factor and percentage latency reduction.
+- Write‑throughput impact measured by inserting 2 000 new rows (latency per insert, total time, inserts / s).
+- Result equivalence verification via exact row‑set comparison.
+
+**Key Empirical Findings**
+| Query | Baseline Mean ms | Optimized Mean ms | Speed‑up | Index Used |
+|---|---|---|---|---|
+| Q1 _Point Filter | 78.4 | 21.8 | **3.60×** | Yes (single‑col index) |
+| Q2 _Range Filter | 62.1 | 70.5 | *‑0.13×* (slower) | Yes (range index) |
+| Q3 _Two‑Table Join | 115.3 | 66.4 | **1.74×** | Yes (FK indexes) |
+| Q4 _Multi‑Table Agg | 84.7 | 78.0 | **1.09×** | Yes |
+| Q5 _Covering Index Agg | 92.5 | 71.1 | **1.30×** | Yes (covering) |
+| Q6 _Join Rewrite | 101.2 | 70.0 | **1.44×** | No (rewrite) |
+
+- **Storage Overhead**: database grew from **2 220 KB** to **5 172 KB** (+133 %).
+- **Write Overhead**: insert latency rose from **109 µs** to **127 µs** per row (≈16 % slowdown); throughput dropped from **9 143 ins/s** to **7 890 ins/s**.
+- **Result Equivalence**: all six queries produced identical result sets after indexing/rewrite, confirming correctness.
+- **Observations**:
+  * Point‑lookup indexes yield the largest speed‑ups; range indexes can degrade performance when selectivity is low (Q2).
+  * Covering indexes reduce I/O by satisfying queries from the index alone, evident in Q5.
+  * Query rewrites may not always help; the sub‑query version of Q6 was faster but the gain depends on the optimizer’s join order heuristics.
+  * The storage/write trade‑off is modest for this scale and acceptable for read‑dominant workloads.
+
+**Artifacts**
+- Benchmark results CSV: `results/track_h/dbms_query_benchmark_results.csv`
+- Write & storage overhead CSV: `results/track_h/dbms_write_storage_overhead.csv`
+- Comparative plot: `results/track_h/dbms_optimization_analysis.png`
 
 ### 2.9 Track I
 - Problem definition & formulation

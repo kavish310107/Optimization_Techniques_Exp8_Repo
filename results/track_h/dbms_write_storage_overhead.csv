@@ -1,0 +1,3 @@
+configuration,total_insert_time_ms,latency_per_insert_us,throughput_inserts_per_sec,db_size_kb
+Baseline (No Secondary Indexes),204.0730998851359,102.03654994256794,9800.409760648097,2220.0
+Optimized (7 Secondary & Covering Indexes),234.88170001655817,117.44085000827909,8514.924746623548,5172.0

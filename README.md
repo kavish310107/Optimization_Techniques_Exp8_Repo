@@ -159,6 +159,18 @@ python "track G/experiments/run_benchmarks.py"
 Generated unified kernel patch is located at `track G/patch/xv6_priority_scheduler.patch`.
 Generated artifacts, CSV benchmark tables, and scheduler performance comparison bar charts are saved in `results/track_g/`.
 
+
+### Track G: Operating-System Optimization
+Run tests:
+```bash
+python -m pytest "track H/tests/test_track_h.py" -v
+```
+Run experimental benchmarks and generate visualizations:
+```bash
+python "track H/experiments/run_benchmarks.py"
+```
+Generated unified kernel patch is located at `track H/patch/xv6_priority_scheduler.patch`.
+Generated artifacts, CSV benchmark tables, and scheduler performance comparison bar charts are saved in `results/track_H/`.
 ---
 
 ## Notes on Version Control & Workflow
