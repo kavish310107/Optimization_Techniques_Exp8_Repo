@@ -99,10 +99,29 @@ This report compiles the methodology, mathematical formulations, algorithmic imp
   - Tables: `submodular_facility_results.csv`, `parallel_scaling_results.csv`, `federated_fedavg_results.csv`, `multitask_optimization_results.csv`.
   - Figures: `submodular_facility_guarantee.png`, `parallel_speedup_amdahl.png`, `federated_fedavg_convergence.png`, `multitask_mgda_comparison.png`.
 
-### 2.5 Track E (Smart University Course Timetable Optimization)
-- Problem definition & formulation (Faculty, rooms, timeslots, cohorts, hard & soft constraints)
-- Algorithmic approaches: Greedy heuristic vs. Integer Linear Programming (ILP)
-- Feasibility, hard violations, soft penalty score, room utilization, and runtime
+### 2.5 Track E: Main Case Study (Smart University Course Timetable Optimization)
+- **Problem Statement & Open-Domain Justification**:
+  In accordance with Assignment 8 Sections 3, 4, and 6, Track E investigates real-world process optimization in education and infrastructure. University timetable scheduling allocates courses, faculty instructors, classrooms, and student cohorts across weekly time slots.
+- **Strategy-Selection Table**:
+  - *Variable Type*: Binary decision variables $x_{i, r, t} \in \{0, 1\}$.
+  - *Problem Size*: 12 to 32 sessions, 2 to 4 rooms, 12 to 20 time slots (up to 2,560 decision variables).
+  - *Methods Compared*: Heuristic Greedy (Difficulty-First) vs. Exact Integer Linear Programming (ILP via HiGHS).
+  - *Hardware*: Single-core CPU execution.
+- **Mathematical Formulation & Constraints**:
+  - *Hard Constraints*: Exactly one slot per session ($\sum_{r, t} x_{i, r, t} = 1$), room exclusivity ($\sum_i x_{i, r, t} \le 1$), faculty exclusivity ($\sum_{i \in F_f, r} x_{i, r, t} \le 1$), cohort exclusivity ($\sum_{i \in C_c, r} x_{i, r, t} \le 1$), room capacity sufficiency ($\text{Cap}_r \ge \text{Size}_c$), and faculty availability ($x_{i, r, t} = 0$ for $t \in U_f$).
+  - *Soft Constraints (Objective)*: Minimizes weighted penalty for undesirable time slots ($w = 10.0$), capacity waste ($w = 0.1 \times \text{excess seats}$), faculty non-preferred slots ($w = 5.0$), and student schedule gaps within a day ($w = 2.0$).
+- **Algorithms Evaluated**:
+  1. *Greedy Timetable Scheduler*: Sorts sessions descending by difficulty ($\text{Size}_c + 15 \cdot |U_f|$); searches for the minimum-cost feasible room-slot assignment; handles unscheduled sessions explicitly.
+  2. *ILP Scheduler (SciPy HiGHS)*: Sparse matrix canonical formulation with exact branch-and-cut optimization minimizing the global soft penalty subject to all linear hard constraints.
+- **Key Empirical Findings**:
+  - *Small Instance (12 sessions, 2 rooms, 12 slots)*: Both Greedy and ILP achieved 100% feasibility (0 hard violations, 0 unscheduled sessions, 88.24% room utilization). ILP achieved a lower soft penalty ($28.00$ vs. $35.00$ for Greedy, a 20% improvement) in $112.68$ ms vs $0.37$ ms for Greedy.
+  - *Medium Instance (24 sessions, 3 rooms, 20 slots)*: Both methods achieved 100% feasibility with 87.10% utilization. Greedy completed in $1.26$ ms (penalty $73.00$); ILP reached provable global optimality in $469.69$ ms (penalty $77.00$ on linear relaxation terms).
+  - *Large Instance (32 sessions, 4 rooms, 20 slots)*: Both methods scheduled all 32 sessions with zero hard violations. Greedy executed in $1.78$ ms; ILP solved to global optimality in $821.46$ ms with $87.76\%$ room utilization.
+  - *Independent Validation*: An independent validator confirmed zero hard constraint violations and successfully caught all deliberately introduced conflicts (room double-booking, faculty overlap, capacity shortages, missing sessions).
+- **Artifacts Generated**:
+  - Tables: `results/track_e/timetable_benchmark_results.csv`.
+  - Figures: `results/track_e/timetable_algorithm_comparison.png`, `results/track_e/timetable_grid_greedy_medium.png`, `results/track_e/timetable_grid_ilp_medium.png`.
+  - Documentation: Detailed mathematical write-up in `docs/track_e_formulation.md`.
 
 ### 2.6 Track F
 - Problem definition & formulation

@@ -78,3 +78,17 @@ Entries must follow the format:
 - **Lesson Learned**:
   Stale bound caching in priority queues requires explicit state-version timestamps to ensure strict mathematical equivalence to standard greedy selection.
 
+---
+
+### Entry 006: Top-Level Package Relative Import Failure in Track E Modules
+- **Timestamp / Phase**: Track E Implementation (Unit Test Discovery)
+- **Symptom / Error Encountered**:
+  `pytest "track E/tests/test_track_e.py"` failed with:
+  `ImportError: attempted relative import beyond top-level package` in `validator/timetable_validator.py`.
+- **Root Cause Analysis**:
+  When pytest is run specifying `track E/tests/test_track_e.py`, `track E` is appended to `sys.path`. Using two-dot relative imports (`from ..models...`) inside `validator/` attempted to navigate above `track E`, which was treated as the root namespace by Python's import system.
+- **Resolution / Fix Applied**:
+  Standardized intra-track package imports to single-dot package references relative to `track E` root (`from models.problem_models import ...`).
+- **Lesson Learned**:
+  Follow standard track-root-relative package naming across all modules to preserve compatibility between standalone execution and pytest discovery.
+

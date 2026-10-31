@@ -1,0 +1,7 @@
+Instance,Method,Total Sessions,Scheduled,Unscheduled,Hard Violations,Feasible,Soft Penalty,Room Utilization (%),Runtime (ms),Solver Status
+Small_Instance,Greedy (Difficulty-First),12,12,0,0,True,35.0,88.24,0.37,Feasible
+Small_Instance,ILP (SciPy HiGHS),12,12,0,0,True,28.0,88.24,112.68,Optimal
+Medium_Instance,Greedy (Difficulty-First),24,24,0,0,True,73.0,87.1,1.26,Feasible
+Medium_Instance,ILP (SciPy HiGHS),24,24,0,0,True,77.0,87.1,469.69,Optimal
+Large_Instance,Greedy (Difficulty-First),32,32,0,0,True,106.0,87.76,1.78,Feasible
+Large_Instance,ILP (SciPy HiGHS),32,32,0,0,True,114.0,87.76,821.46,Optimal

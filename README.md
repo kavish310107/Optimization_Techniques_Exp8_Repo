@@ -43,7 +43,7 @@ A comprehensive investigation and implementation of optimization methodologies a
 | **Track B** | Discrete Optimization (Chapter 6 methods) | Greedy, Dynamic Programming, Branch-and-Bound, ILP (HiGHS), QUBO, Ising conversions | Completed |
 | **Track C** | Quantum Optimization (Chapter 6 methods) | QAOA, VQE, Parameter-Shift, SPSA, QNG, Barren Plateau analysis | Completed |
 | **Track D** | Submodular, Parallel & Distributed Optimization | Greedy & Lazy Greedy, Amdahl/Gustafson parallel scaling, FedAvg, MGDA & GradNorm | Completed |
-| **Track E** | Smart University Course Timetable Optimization | Greedy vs. Integer Linear Programming (ILP) | Pending Spec Verification |
+| **Track E** | Main Real-Process Case Study: University Course Timetable Optimization | Greedy (Difficulty-First) vs. Exact Integer Linear Programming (SciPy HiGHS) | Completed |
 | **Track F** | Pending specification | TBD | Not Started |
 | **Track G** | Pending specification | TBD | Not Started |
 | **Track H** | Pending specification | TBD | Not Started |
@@ -75,7 +75,7 @@ pip install -r requirements.txt
 
 | AI Tool / Model | Version / Interface | Tracks | Date(s) | Activities / Contributions |
 |:---|:---|:---|:---|:---|
-| **Gemini (Antigravity Assistant)** | Gemini 3.8 Flash (Low) | Setup, Tracks A, B, C, D | 2026-10-28 to 2026-10-29 | Architecture design, algorithm implementation, unit testing, benchmark execution, documentation |
+| **Gemini (Antigravity Assistant)** | Gemini 3.8 Flash (Low) | Setup, Tracks A, B, C, D, E | 2026-10-28 to 2026-10-31 | Architecture design, algorithm implementation, unit testing, benchmark execution, documentation |
 
 ---
 
@@ -124,6 +124,17 @@ Run experimental benchmarks and generate visualizations:
 python "track D/experiments/runner.py"
 ```
 Generated artifacts, CSV files, and plots are saved in `results/track_d/`.
+
+### Track E: Main Case Study (Smart University Course Timetable Optimization)
+Run tests:
+```bash
+python -m pytest "track E/tests/test_track_e.py" -v
+```
+Run experimental benchmarks and generate visualizations:
+```bash
+python "track E/experiments/runner.py"
+```
+Generated artifacts, CSV benchmark tables, and schedule occupancy grid plots are saved in `results/track_e/`.
 
 ---
 

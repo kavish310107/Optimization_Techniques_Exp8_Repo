@@ -23,7 +23,7 @@ This checklist tracks assignment requirements, deliverable status, testing statu
 | **Track B** | Fully Specified (Sec. 5 & 6) | Completed | 12/12 Passed | Generated (`results/track_b/`) | 🟢 Complete |
 | **Track C** | Fully Specified (Sec. 5 & 6) | Completed | 7/7 Passed | Generated (`results/track_c/`) | 🟢 Complete |
 | **Track D** | Fully Specified (Sec. 5 & 6) | Completed | 9/9 Passed | Generated (`results/track_d/`) | 🟢 Complete |
-| **Track E** | Case Study Proposed (Timetabling) | Not Started | Not Started | Not Started | ⚪ Incomplete |
+| **Track E** | Case Study Verified & Specified | Completed | 7/7 Passed | Generated (`results/track_e/`) | 🟢 Complete |
 | **Track F** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
 | **Track G** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
 | **Track H** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
@@ -72,7 +72,16 @@ This checklist tracks assignment requirements, deliverable status, testing statu
   - [x] Multi-task Pareto optimization: Two-task conflicting regression model, analytical MGDA minimum-norm gradient solver, GradNorm dynamic weighting, and comparison against equal task weighting.
   - [x] Comprehensive test suite (9 unit tests passed).
   - [x] Artifacts, tables, and plots saved to `results/track_d/`.
-- [ ] **Phase 5: Track E** (Verify Smart University Course Timetable Optimization against Track E requirements)
+- [x] **Phase 5: Track E (Smart University Course Timetable Optimization)**
+  - [x] Verification against Track E open-domain case study criteria (Sections 3, 4, 5, 6).
+  - [x] Problem formulation: Courses/sessions, faculty, rooms with capacities, time slots, student cohorts.
+  - [x] Hard constraints: Room, faculty, and cohort double-booking prevention, room capacity sufficiency, faculty availability.
+  - [x] Soft constraints: Undesirable slot avoidance, excess capacity minimization, faculty preference adherence, student gap reduction.
+  - [x] Algorithms: Greedy most-constrained-first scheduler vs. Exact Integer Linear Programming (SciPy HiGHS backend).
+  - [x] Independent validator: Validates all hard/soft constraints separately; verified with deliberately injected conflicts.
+  - [x] Empirical evaluation across Small, Medium, Large instances (Feasibility, violations, penalties, utilization, runtime).
+  - [x] Comprehensive test suite (7 unit tests passed).
+  - [x] Artifacts, tables, and schedule grid occupancy plots saved to `results/track_e/`.
 - [ ] **Phase 6: Track F**
 - [ ] **Phase 7: Track G**
 - [ ] **Phase 8: Track H**
