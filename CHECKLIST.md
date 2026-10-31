@@ -28,7 +28,7 @@ This checklist tracks assignment requirements, deliverable status, testing statu
 | **Track G** | Fully Specified (Sec. 5 & 6) | Completed | 6/6 Passed | Generated (`results/track_g/`) | 🟢 Complete |
 | **Track H** | Fully Specified (Sec. 5 & 6) | Completed | 5/5 Passed | Generated (`results/track_h/`) | 🟢 Complete |
 | **Track I** | Fully Specified (Sec. 5 & 6) | Completed | 7/7 Passed | Generated (`results/track_i/`) | 🟢 Complete |
-| **Track J** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
+| **Track J** | Fully Specified (Sec. 5 & 6) | Completed | 5/5 Passed | Generated (`results/track_j/`) | 🟢 Complete |
 
 ---
 
@@ -114,6 +114,13 @@ This checklist tracks assignment requirements, deliverable status, testing statu
   - [x] Simulated NISQ hardware noise impact and analysis of encoding/simulation bottlenecks.
   - [x] Automated test suite (7 unit tests passed).
   - [x] Artifacts, CSV tables, and visualization plots saved to `results/track_i/`.
-- [ ] **Phase 10: Track J**
+- [x] **Phase 10: Track J (Software-Engineering Optimization)**
+  - [x] Problem formulation: Test-Suite Minimization & Prioritization for CI regression testing.
+  - [x] Minimum-weight set cover exact ILP formulation (SciPy HiGHS) and Greedy Additional Coverage heuristic.
+  - [x] Budget-constrained dynamic programming (0-1 knapsack) for pull-request gating.
+  - [x] APFD (Average Percentage of Faults Detected) metric calculation and fault discovery evaluation.
+  - [x] Scalability evaluation across suite sizes up to 400 test cases and 200 requirements.
+  - [x] Automated test suite (5 unit tests passed).
+  - [x] Artifacts, CSV benchmark tables, and comparative charts saved to `results/track_j/`.
 - [ ] **Phase 11: Final Synthesis** (Consolidate REPORT.md, tool_comparison.md, failure_log.md)
 

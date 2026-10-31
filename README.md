@@ -48,7 +48,7 @@ A comprehensive investigation and implementation of optimization methodologies a
 | **Track G** | Operating-System Optimization | xv6 Priority Scheduler with Dynamic Aging, unified kernel patch, discrete-event OS simulator | Completed |
 | **Track H** | DBMS Optimization | Relational indexing, B-Tree scans, query plan analysis, write overhead | Completed |
 | **Track I** | Quantum Algorithms and QML Advantage | Deutsch-Jozsa, Bernstein-Vazirani, Grover, QFT, QPE, Shor, VQC, Classical baselines | Completed |
-| **Track J** | Pending specification | TBD | Not Started |
+| **Track J** | Software-Engineering Optimization | CI test-suite minimization, exact ILP set cover (HiGHS), greedy coverage, budgeted DP, APFD | Completed |
 
 ---
 
@@ -181,6 +181,18 @@ Run experimental benchmarks and generate visualizations:
 python "track I/experiments/runner.py"
 ```
 Generated artifacts, CSV benchmark tables, and quantum vs classical comparison plots are saved in `results/track_i/`.
+
+### Track J: Software-Engineering Optimization
+Run tests:
+```bash
+python -m pytest "track J/tests/test_track_j.py" -v
+```
+Run experimental benchmarks and generate visualizations:
+```bash
+python "track J/experiments/runner.py"
+```
+Generated artifacts, CSV benchmark tables, and CI test-suite optimization plots are saved in `results/track_j/`.
+
 
 ---
 

@@ -260,10 +260,43 @@ This report compiles the methodology, mathematical formulations, algorithmic imp
 - Benchmark tables: `results/track_i/quantum_algorithms_suite_results.csv`, `results/track_i/grover_vs_classical_scaling.csv`, `results/track_i/qml_vs_classical_results.csv`.
 - Visualizations: `results/track_i/quantum_vs_classical_qml_analysis.png`.
 
-### 2.10 Track J
-- Problem definition & formulation
-- Algorithmic approaches
-- Empirical setup & evaluation metrics
+### 2.10 Track J: Software-Engineering Optimization (Test-Suite Minimization & Prioritization)
+
+**Problem Definition & Scope**
+- Investigates software-engineering optimization in Continuous Integration (CI) regression pipelines.
+- Modern software codebases (including our 9,000+ line repository) accumulate large test suites that cause high CI latency and developer turnaround delays.
+- Track J models the test-suite minimization and prioritization problem on realistic software repository test suites ($N \in [50, 400]$ tests covering up to 200 software requirements and injected regression faults).
+
+**Mathematical Formulations & Algorithmic Approaches**
+1. **Exact Minimum-Weight Set Cover (ILP via HiGHS)**:
+   $$\min \sum_{i=1}^n c_i x_i \quad \text{subject to} \quad \sum_{i : r \in C_i} x_i \ge 1 \quad \forall r \in R, \quad x_i \in \{0, 1\}$$
+   where $c_i$ is test execution duration and $R$ is the set of all code requirements.
+2. **Submodular Greedy Additional Coverage**:
+   Iteratively selects test case maximizing marginal new coverage per execution time unit ($\arg\max_i \frac{|C_i \cap U|}{c_i}$).
+3. **Budget-Constrained Dynamic Programming (0-1 Knapsack)**:
+   Given strict CI execution budget $B$ (e.g. for rapid pull-request gates), maximizes requirement coverage without exceeding $B$.
+4. **Average Percentage of Faults Detected (APFD)**:
+   $$\text{APFD} = 1 - \frac{\sum_{i=1}^m TF_i}{n \cdot m} + \frac{1}{2n}$$
+
+**Empirical Setup & Evaluation Metrics**
+- Test suite reduction percentage and CI execution time reduction.
+- Preservation of requirement coverage ($100\%$ target for set-cover methods).
+- Fault detection rate and APFD prioritization metric.
+- Solver scalability and optimization overhead as $N$ scales from 50 to 400 tests.
+
+**Key Empirical Findings**
+- **Test Suite Reduction on $N=150$ Suite**:
+  - *Naive Full Suite*: 150 tests, execution duration **$4,524.26$ ms** (100% coverage, 80 requirements).
+  - *Greedy Additional Coverage*: Selected 20 tests (**86.7% suite reduction**), running in **$227.11$ ms** (**95.0% time reduction**) while maintaining **100% coverage**.
+  - *Exact ILP (HiGHS)*: Selected 14 tests (**90.7% suite reduction**), running in **$201.51$ ms** (**95.5% time reduction**), achieving provably optimal test duration with 100% coverage.
+  - *Budgeted DP ($B=400$ ms)*: Selected 34 tests running in $412.85$ ms, retaining 92.5% coverage.
+- **Scalability ($N=50$ to $N=400$)**:
+  - For $N=400$ tests, naive execution requires **$14.08$ seconds**, whereas exact ILP minimizes execution to **$0.54$ seconds** (**$26.04\times$ speedup**).
+  - ILP solver runtime was $4.43$ seconds for $N=400$, demonstrating that offline ILP pre-solve easily amortizes across hundreds of developer CI builds.
+
+**Artifacts Generated**
+- Benchmark CSV tables: `results/track_j/test_suite_minimization_results.csv`, `results/track_j/test_suite_scalability_results.csv`.
+- Visualizations: `results/track_j/test_suite_minimization_analysis.png`.
 
 ---
 
