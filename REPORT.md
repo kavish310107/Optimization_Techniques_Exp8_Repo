@@ -219,10 +219,46 @@ This report compiles the methodology, mathematical formulations, algorithmic imp
 - Write & storage overhead CSV: `results/track_h/dbms_write_storage_overhead.csv`
 - Comparative plot: `results/track_h/dbms_optimization_analysis.png`
 
-### 2.9 Track I
-- Problem definition & formulation
-- Algorithmic approaches
-- Empirical setup & evaluation metrics
+### 2.9 Track I: Quantum Algorithms and Quantum Machine Learning (QML)
+
+**Problem Definition & Scope**
+- Track I investigates foundational quantum algorithms and quantum machine learning models, assessing where quantum approaches provide verifiable mathematical advantages and where practical physical bottlenecks (simulation overhead, gate noise, state preparation costs) currently limit utility.
+- All algorithms were implemented with hand-crafted native circuits in Qiskit 2.x rather than high-level library black boxes.
+
+**Algorithms & Formulations Evaluated**
+1. **Deutsch-Jozsa**: Exact determination of whether $f: \{0,1\}^n \to \{0,1\}$ is constant or balanced in 1 quantum oracle query vs. $2^{n-1}+1$ classical evaluations.
+2. **Bernstein-Vazirani**: Extraction of a secret bitstring $s \in \{0,1\}^n$ via phase kickback with a single quantum query vs. $n$ classical queries.
+3. **Grover's Search**: Amplitude amplification on an unstructured database of size $N=2^n$, achieving $O(\sqrt{N})$ oracle query complexity compared to classical $O(N)$ linear scan.
+4. **Quantum Fourier Transform (QFT)**: Unitary mapping to frequency basis requiring $O(n^2)$ elementary quantum gates vs. classical FFT $O(n 2^n)$.
+5. **Quantum Phase Estimation (QPE)**: Measurement of phase $\theta$ in $U |\psi\rangle = e^{2\pi i \theta} |\psi\rangle$ with exponential precision scaling in counting register qubits.
+6. **Shor's Period Finding**: Quantum order-finding routine determining modular period $r$ such that $a^r \equiv 1 \pmod N$.
+7. **Variational Quantum Classifier (VQC)**: Supervised binary classifier combining angle feature maps ($\text{Ry}$ rotations) and parameterized entangling $\text{CX}$ ladders, trained via analytic parameter-shift gradients.
+8. **Classical Baselines**: Classical Logistic Regression (linear decision surface) and Multilayer Perceptron (MLP).
+
+**Empirical Setup & Evaluation Metrics**
+- Query counts, gate counts, and circuit depths across all quantum algorithms.
+- Wall-clock time and query complexity scaling across search space sizes $N \in \{4, 8, 16, 32\}$.
+- Classification accuracy, parameter count, training latency, and circuit queries on the two-moons benchmark.
+- Resilience under simulated hardware depolarizing noise ($5\%$ and $15\%$).
+
+**Key Empirical Findings**
+- **Quantum Algorithms Verification**:
+  - Deutsch-Jozsa successfully classified balanced and constant oracles with $100\%$ accuracy in 1 query (depth 8, 20 gates).
+  - Bernstein-Vazirani extracted secret bitstring `1011` deterministically in 1 query (depth 7, 19 gates).
+  - QPE estimated phase $\theta = 0.375$ ($3/8$) to zero error ($|est - 0.375| < 10^{-4}$) using 3 counting qubits.
+  - Shor's routine identified order $r=4$ for $a=7, N=15$ ($7^4 \equiv 1 \pmod{15}$).
+- **Algorithmic Query Advantage vs. Simulation Reality**:
+  - In Grover's search, quantum oracle queries scaled as $O(\sqrt{N})$ ($1, 2, 3, 4$ queries for $N=4, 8, 16, 32$) achieving a $2.75\times$ to $4.67\times$ algorithmic query reduction over classical linear search.
+  - However, classical simulation wall-clock time scaled exponentially with qubit count ($4.4$ ms for $N=4$ up to $120.1$ ms for $N=32$, a $5,586\times$ simulation wall-clock overhead compared to classical CPU search at $0.02$ ms). This confirms that quantum computational advantage is exclusively realizable on physical quantum processors.
+- **QML Variational Classifier Performance**:
+  - Classical Logistic Regression achieved $86.7\%$ test accuracy in $0.009$ seconds (3 parameters).
+  - Classical MLP achieved $66.7\%$ test accuracy in $0.223$ seconds.
+  - Variational Quantum Classifier (VQC) achieved $80.0\%$ test accuracy, requiring $28.53$ seconds and 10,830 circuit queries using analytic parameter-shift gradients.
+  - Simulated hardware depolarizing noise attenuated expectation values, degrading classification margins and emphasizing the need for quantum error mitigation in NISQ applications.
+
+**Artifacts Generated**
+- Benchmark tables: `results/track_i/quantum_algorithms_suite_results.csv`, `results/track_i/grover_vs_classical_scaling.csv`, `results/track_i/qml_vs_classical_results.csv`.
+- Visualizations: `results/track_i/quantum_vs_classical_qml_analysis.png`.
 
 ### 2.10 Track J
 - Problem definition & formulation

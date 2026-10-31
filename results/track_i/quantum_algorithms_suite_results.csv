@@ -1,0 +1,8 @@
+algorithm,input_qubits,circuit_depth,total_gates,quantum_queries,classical_queries_required,theoretical_speedup,simulation_success
+Deutsch-Jozsa (Balanced),4,8,20,1,9,Exponential (deterministic),True
+Deutsch-Jozsa (Constant),4,4,16,1,9,Exponential (deterministic),True
+Bernstein-Vazirani (s='1011'),4,7,19,1,4,Linear query reduction (1 vs n),True
+"Grover Search (N=8, target='101')",3,22,51,2,4,Quadratic: O(sqrt(N)) vs O(N),True
+Quantum Fourier Transform (QFT),4,8,12,0,64,Polynomial gate speedup: O(n^2) vs O(n 2^n),True
+"Quantum Phase Estimation (QPE, theta=0.375)",4,11,20,3,8,Exponential precision scaling in qubits,True
+"Shor's Period Finding (a=7, N=15)",8,42,128,1,15,Super-polynomial: O((log N)^3) vs O(exp(N^(1/3))),True

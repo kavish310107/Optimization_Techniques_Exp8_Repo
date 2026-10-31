@@ -27,7 +27,7 @@ This checklist tracks assignment requirements, deliverable status, testing statu
 | **Track F** | Fully Specified (Sec. 5 & 6) | Completed | 8/8 Passed | Generated (`results/track_f/`) | 🟢 Complete |
 | **Track G** | Fully Specified (Sec. 5 & 6) | Completed | 6/6 Passed | Generated (`results/track_g/`) | 🟢 Complete |
 | **Track H** | Fully Specified (Sec. 5 & 6) | Completed | 5/5 Passed | Generated (`results/track_h/`) | 🟢 Complete |
-| **Track I** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
+| **Track I** | Fully Specified (Sec. 5 & 6) | Completed | 7/7 Passed | Generated (`results/track_i/`) | 🟢 Complete |
 | **Track J** | Pending Spec | Not Started | Not Started | Not Started | ⚪ Incomplete |
 
 ---
@@ -100,8 +100,20 @@ This checklist tracks assignment requirements, deliverable status, testing statu
   - [x] Metrics evaluated: Turnaround time, waiting time, response time, context switches, and Jain's Fairness Index.
   - [x] Comprehensive test suite (6 unit tests passed).
   - [x] Artifacts, tables, and performance plots saved to `results/track_g/`.
-- [ ] **Phase 8: Track H**
-- [ ] **Phase 9: Track I**
+- [x] **Phase 8: Track H (DBMS Optimization)**
+  - [x] E-commerce database schema and synthetic dataset generation.
+  - [x] Baseline unindexed heap scans vs. 7 secondary & covering B-Tree indexes.
+  - [x] Query plan analysis (`EXPLAIN QUERY PLAN`), index usage metrics, and query rewrite comparisons.
+  - [x] Query latency benchmarking, storage overhead analysis (+133%), and write throughput penalty.
+  - [x] Automated test suite (5 unit tests passed).
+  - [x] Artifacts, tables, and comparative plots saved to `results/track_h/`.
+- [x] **Phase 9: Track I (Quantum Algorithms and QML Advantage)**
+  - [x] Quantum Algorithms Suite: Hand-crafted Qiskit circuits for Deutsch-Jozsa, Bernstein-Vazirani, Grover's Search, QFT, QPE, and Shor's order finding.
+  - [x] Grover vs Classical Linear Search complexity scaling ($O(\sqrt{N})$ vs $O(N)$ query speedup vs classical simulation wall-clock overhead).
+  - [x] QML Benchmarking: Variational Quantum Classifier (VQC) with angle feature map and entangling CX ladder trained with parameter-shift gradients vs. classical Logistic Regression and MLP.
+  - [x] Simulated NISQ hardware noise impact and analysis of encoding/simulation bottlenecks.
+  - [x] Automated test suite (7 unit tests passed).
+  - [x] Artifacts, CSV tables, and visualization plots saved to `results/track_i/`.
 - [ ] **Phase 10: Track J**
 - [ ] **Phase 11: Final Synthesis** (Consolidate REPORT.md, tool_comparison.md, failure_log.md)
 

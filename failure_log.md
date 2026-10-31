@@ -122,8 +122,22 @@ Entries must follow the format:
 - **Lesson Learned**:
   Dynamic aging requires both priority promotion in waiting queues and preemptive rescheduling upon timer interrupt; without preemption, priority improvements remain latent until the currently executing thread voluntarily relinquishes the CPU.
 
-### Entry 009: DBMS Indexing Trade‑off Analysis (Track H)
-- **Timestamp / Phase**: Benchmark & Analysis Phase (Track H)\n- **Symptom / Observation**: Adding seven secondary indexes increased database size by 133 % and insert latency by ~16 %, but yielded query speed‑ups up to 3.6× (point‑lookup) and overall average reduction of ~25 %.\n- **Root Cause Analysis**: Indexes improve read‑heavy query performance by enabling B‑Tree lookups and covering scans, while incurring additional B‑Tree pages and write‑ahead‑log updates on INSERT/UPDATE.\n- **Resolution / Insight**: For read‑dominant workloads, the storage and write overhead is acceptable; for write‑intensive scenarios, selective indexing or partial indexes should be considered.\n- **Lesson Learned**: Empirical measurement of both read and write metrics is essential when evaluating indexing strategies, as low‑selectivity range indexes may degrade performance.
+### Entry 009: DBMS Indexing Trade-off Analysis (Track H)
+- **Timestamp / Phase**: Benchmark & Analysis Phase (Track H)
+- **Symptom / Observation**: Adding seven secondary indexes increased database size by 133% and insert latency by ~16%, but yielded query speed-ups up to 3.6× (point-lookup) and overall average reduction of ~25%.
+- **Root Cause Analysis**: Indexes improve read-heavy query performance by enabling B-Tree lookups and covering scans, while incurring additional B-Tree pages and write-ahead-log updates on INSERT/UPDATE.
+- **Resolution / Insight**: For read-dominant workloads, the storage and write overhead is acceptable; for write-intensive scenarios, selective indexing or partial indexes should be considered.
+- **Lesson Learned**: Empirical measurement of both read and write metrics is essential when evaluating indexing strategies, as low-selectivity range indexes may degrade performance.
 
-### Entry 009: DBMS Indexing Trade‑off Analysis (Track H)
-- **Timestamp / Phase**: Benchmark & Analysis Phase (Track H)\n- **Symptom / Observation**: Adding seven secondary indexes increased database size by 133 % and insert latency by ~16 %, but yielded query speed‑ups up to 3.6× (point‑lookup) and overall average reduction of ~25 %.\n- **Root Cause Analysis**: Indexes improve read‑heavy query performance by enabling B‑Tree lookups and covering scans, while incurring additional B‑Tree pages and write‑ahead‑log updates on INSERT/UPDATE.\n- **Resolution / Insight**: For read‑dominant workloads, the storage and write overhead is acceptable; for write‑intensive scenarios, selective indexing or partial indexes should be considered.\n- **Lesson Learned**: Empirical measurement of both read and write metrics is essential when evaluating indexing strategies, as low‑selectivity range indexes may degrade performance.
+---
+
+### Entry 010: Statevector Endianness and Bitstring Alignment in Quantum Measurement Interpretation
+- **Timestamp / Phase**: Track I Implementation (Quantum Algorithm Verification)
+- **Symptom / Error Encountered**:
+  During early unit testing of Deutsch-Jozsa and Quantum Phase Estimation (QPE), assertions checking output states failed: Deutsch-Jozsa evaluated constant oracle success as `False`, and QPE estimated phase `0.75` instead of `0.375`.
+- **Root Cause Analysis**:
+  Qiskit represents quantum statevectors in little-endian ordering, where qubit 0 is the least significant bit (rightmost in state string `q_n...q_1 q_0`). In Deutsch-Jozsa with an ancilla qubit at index $n$, the ancilla is the leftmost character in the state string, whereas input registers span `state[1:]`. Similarly in QPE, the counting register corresponds to the rightmost bits while the eigenstate qubit is the leftmost bit. Reading `state[:3]` inverted the bit significance, resulting in phase estimate `110_2 / 8 = 6/8 = 0.75` instead of `011_2 / 8 = 3/8 = 0.375`.
+- **Resolution / Fix Applied**:
+  Corrected bitstring slicing to account for Qiskit register conventions: extracting `max_state[1:]` for the counting register and mapping binary fractions using proper bit significance. All 7 quantum algorithms and QPE phases subsequently passed with zero error.
+- **Lesson Learned**:
+  Always verify register-to-bitstring index mappings and endianness conventions when transitioning between mathematical Dirac bra-ket formulations and framework-specific simulator statevectors.

@@ -46,8 +46,8 @@ A comprehensive investigation and implementation of optimization methodologies a
 | **Track E** | Main Real-Process Case Study: University Course Timetable Optimization | Greedy (Difficulty-First) vs. Exact Integer Linear Programming (SciPy HiGHS) | Completed |
 | **Track F** | Compiler Optimization | MiniLang compiler, 4 optimizations (CFP, DCE, CSE, SR), ILP/Greedy Register Allocation | Completed |
 | **Track G** | Operating-System Optimization | xv6 Priority Scheduler with Dynamic Aging, unified kernel patch, discrete-event OS simulator | Completed |
-| **Track H** | Pending specification | TBD | Not Started |
-| **Track I** | Pending specification | TBD | Not Started |
+| **Track H** | DBMS Optimization | Relational indexing, B-Tree scans, query plan analysis, write overhead | Completed |
+| **Track I** | Quantum Algorithms and QML Advantage | Deutsch-Jozsa, Bernstein-Vazirani, Grover, QFT, QPE, Shor, VQC, Classical baselines | Completed |
 | **Track J** | Pending specification | TBD | Not Started |
 
 ---
@@ -160,17 +160,28 @@ Generated unified kernel patch is located at `track G/patch/xv6_priority_schedul
 Generated artifacts, CSV benchmark tables, and scheduler performance comparison bar charts are saved in `results/track_g/`.
 
 
-### Track G: Operating-System Optimization
+### Track H: DBMS Optimization
 Run tests:
 ```bash
 python -m pytest "track H/tests/test_track_h.py" -v
 ```
 Run experimental benchmarks and generate visualizations:
 ```bash
-python "track H/experiments/run_benchmarks.py"
+python "track H/experiments/benchmark_runner.py"
 ```
-Generated unified kernel patch is located at `track H/patch/xv6_priority_scheduler.patch`.
-Generated artifacts, CSV benchmark tables, and scheduler performance comparison bar charts are saved in `results/track_H/`.
+Generated artifacts, CSV benchmark tables, and DBMS query optimization comparison bar charts are saved in `results/track_h/`.
+
+### Track I: Quantum Algorithms and QML Advantage
+Run tests:
+```bash
+python -m pytest "track I/tests/test_track_i.py" -v
+```
+Run experimental benchmarks and generate visualizations:
+```bash
+python "track I/experiments/runner.py"
+```
+Generated artifacts, CSV benchmark tables, and quantum vs classical comparison plots are saved in `results/track_i/`.
+
 ---
 
 ## Notes on Version Control & Workflow

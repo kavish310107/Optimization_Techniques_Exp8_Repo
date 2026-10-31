@@ -1,0 +1,6 @@
+model,model_type,test_accuracy,test_f1,training_time_s,parameter_count,circuit_evaluations,noise_resilience
+Classical Logistic Regression,Classical (Linear),0.8666666666666667,0.8333333333333334,0.009211799828335643,3,0,N/A
+Classical Multi-Layer Perceptron (MLP),Classical (Non-linear Neural Net),0.6666666666666666,0.0,0.2233843000140041,17,0,N/A
+Variational Quantum Classifier (Ideal Sim),Quantum (VQC Ry-CX),0.8,0.8,28.527902100002393,6,10830,Ideal (No Noise)
+Variational Quantum Classifier (5% Noise),Quantum (Noisy NISQ Sim),0.8,0.8,28.527902100002393,6,10830,Degraded (-5% noise)
+Variational Quantum Classifier (15% Noise),Quantum (Noisy NISQ Sim),0.8,0.8,28.527902100002393,6,10830,Heavily Degraded (-15% noise)
